@@ -1,0 +1,29 @@
+zynq-utils - zynq development utilities
+==========
+
+Utilities for zynq development.
+
+License
+-------
+The MIT License
+
+https://opensource.org/licenses/MIT
+
+Reference
+---------
+* [電気回路/zynq - 武内＠筑波大 #kc37dfd8](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq#kc37dfd8)
+
+Contents
+--------
+<%= 
+  Dir.glob("src/*/README.md").map do |f|
+    `head -1 #{f}`.sub(/^([^ ]+)/, '* [\1](#\1)')
+  end.join("")
+%>
+
+<%= 
+  Dir.glob("src/*/README.md").map do |f|
+    `head -1 #{f}`.sub(/^([^ ]+)/, '<span id="\1">\1</span>') + 
+    `tail -n +1 #{f}`
+  end.join("")
+%>

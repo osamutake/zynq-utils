@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+  echo "USAGE: fpga-program little-endian.bin"
+  exit 0
+fi
+
+flip32 $1 > /lib/firmware/fpga-full/big-endian.bin
+
+cat << EOT > /tmp/fpga-region.dtso
+/dts-v1/;
+/plugin/;
+/ {
+    fragment@0 {
+        target-path = "/fpga-full";
+        #address-cells = <1>;
+        #size-cells = <1>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <1>;
+            firmware-name = "fpga-full/big-endian.bin";
+        };
+    };
+};
+EOT
+
+exec dto fpga-region /tmp/fpga-region.dtso

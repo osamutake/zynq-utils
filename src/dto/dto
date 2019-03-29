@@ -1,0 +1,28 @@
+#!/bin/sh
+
+OVERLAY=/sys/kernel/config/device-tree/overlays
+
+if [ -z $1 ]; then
+  echo USAGE: sudo dto folder-name [file-name.dts]
+  exit 1
+fi
+
+if [ -e $OVERLAY/$1 ]; then
+  rmdir $OVERLAY/$1
+  if [ "$?" != "0" ]; then
+    echo "Unable to remove previous overlay folder."
+    exit 1
+  fi
+fi
+
+if [ -z $2 ]; then
+  exit 0
+fi
+
+mkdir -p $OVERLAY/$1
+if [ "$?" != "0" ]; then
+  echo "Unable to create overlay folder."
+  exit 1
+fi
+
+dtc -O dtb $2 > $OVERLAY/$1/dtbo

@@ -1,0 +1,103 @@
+#!/bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+. /lib/lsb/init-functions
+
+FPGA_PROGRAM=/usr/local/bin/fpga-program
+DTO=/usr/local/bin/dto
+BINFILES="/boot/design*.bin"
+DTSOFILES="/boot/dtso.d/*.dtso"
+INITFILES="/boot/fpga_init.d/*[!~]"
+
+test -x $DTO || exit 5
+test -x $FPGA_PROGRAM || exit 5
+
+num () {
+    echo $#
+}
+
+program_fpga () {
+    if [ $(num $BINFILES) = 0 ]; then
+      echo "No .bin file found at /boot."
+      return 1
+    fi
+
+    if [ $(num $BINFILES) = 1 ]; then
+        BINFILE=$BINFILES
+    else
+        echo "==== Multiple binary files found:"
+        n=1
+        for bin in $BINFILES
+        do
+          echo "  " $n : $bin
+          n=$(($n + 1))
+        done
+        echo -n "Which file should be loaded: "
+        read selection
+        n=1
+        for bin in $BINFILES
+        do
+          if [ $n = $selection ]; then
+              BINFILE=$bin
+          fi
+          n=`expr $n + 1`
+        done
+    fi
+    echo "Programming FPGA logic with $BINFILE"
+    $FPGA_PROGRAM $BINFILE
+}
+
+load_dtso () {
+    for dtso in $DTSOFILES
+    do
+      mountp=$(echo $dtso|sed "s/.*\///"|sed "s/\..*//")
+      echo "Loading $dtso at $mountp"
+      $DTO $mountp $dtso
+    done
+}
+
+fpga_start () {
+    for init in $INITFILES
+    do
+      $init start
+    done
+}
+
+fpga_stop () {
+    for init in `echo $INITFILES|tac -s " "`
+    do
+      $init stop
+    done
+}
+
+unload_dtso () {
+    for dtso in `echo $DTSOFILES|tac -s " "`
+    do
+      mountp=$(echo $dtso|sed "s/.*\///"|sed "s/\..*//")
+      echo "Unloading $dtso at $mountp"
+      $DTO $mountp
+    done
+}
+
+case $1 in
+        start)
+                log_daemon_msg "Starting FPGA logic" "fpga"
+                program_fpga && load_dtso && fpga_start
+                log_end_msg $?
+                ;;
+        stop)
+                log_daemon_msg "Stopping FPGA logic" "fpga"
+                fpga_stop && unload_dtso
+                ;;
+        status)
+                fpga_status
+                ;;
+        restart|force-reload)
+                $0 stop; sleep 1;$0 start
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|try-restart|force-reload|status}"
+                exit 2
+                ;;
+esac
