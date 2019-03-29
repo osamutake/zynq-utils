@@ -1,4 +1,3 @@
-
 fpga - A init.d script that initializes and finalizes fpga
 ==========================================================
 

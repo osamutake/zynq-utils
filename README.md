@@ -16,16 +16,17 @@ Reference
 Contents
 --------
 * [fpga-program](#fpga-program) - Program FPGA programmable logic using Fpga Region
-* [
-](#
-)* [dto](#dto) - Device Tree Overlay utility
+* [fpga](#fpga) - A init.d script that initializes and finalizes fpga
+* [dto](#dto) - Device Tree Overlay utility
 * [uio](#uio) - A program to manipulate uio devices
 * [flip32](#flip32) - Flip byte order of 32bit word data
 * [lcd-control](#lcd-control) - Manipulate character LCD controller ST7032i via i2c
 
 
+
+<hr>
+
 <span id="fpga-program">fpga-program</span> - Program FPGA programmable logic using Fpga Region
-fpga-program - Program FPGA programmable logic using Fpga Region
 ============
 
 What is this?
@@ -56,10 +57,10 @@ So, DO NOT give a **big-endian** `.bin` file to this script.
 Reference
 ---------
 * [電気回路/zynq/Petalinux2018.3でPLとDevice Treeを動的に変更する - 武内＠筑波大 #gb07ac62](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq%2FPetalinux2018.3%E3%81%A7PL%E3%81%A8Device%20Tree%E3%82%92%E5%8B%95%E7%9A%84%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B#gb07ac62)
-<span id="
-">
-</span>
-fpga - A init.d script that initializes and finalizes fpga
+
+<hr>
+
+<span id="fpga">fpga</span> - A init.d script that initializes and finalizes fpga
 ==========================================================
 
 What is this?
@@ -89,8 +90,10 @@ Copy the script `fpga` into `/etc/init.d/` and setup auto start at boot time wit
 Reference
 ---------
 * [電気回路/zynq/自動起動の設定 - 武内＠筑波大 #rfb55e43](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq%2F%E8%87%AA%E5%8B%95%E8%B5%B7%E5%8B%95%E3%81%AE%E8%A8%AD%E5%AE%9A#rfb55e43)
+
+<hr>
+
 <span id="dto">dto</span> - Device Tree Overlay utility
-dto - Device Tree Overlay utility
 =====================
 
 What is this?
@@ -166,8 +169,10 @@ ls: cannot access '/sys/kernel/config/device-tree/overlays/example': No such fil
 Reference
 ---------
 * [電気回路/zynq/Petalinux2018.3でPLとDevice Treeを動的に変更する - 武内＠筑波大 #b87fd39f](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq%2FPetalinux2018.3%E3%81%A7PL%E3%81%A8Device%20Tree%E3%82%92%E5%8B%95%E7%9A%84%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B#b87fd39f)
+
+<hr>
+
 <span id="uio">uio</span> - A program to manipulate uio devices
-uio - A program to manipulate uio devices
 =========================================
 
 What is this?
@@ -201,8 +206,10 @@ $ uio 0 8 0x00000064
 Reference
 ----------
 * [電気回路/zynq/Petalinux2018.3でaxi_gpio - 武内＠筑波大 #ma01034d](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq%2FPetalinux2018.3%E3%81%A7axi_gpio#ma01034d)
+
+<hr>
+
 <span id="flip32">flip32</span> - Flip byte order of 32bit word data
-flip32 - Flip byte order of 32bit word data
 ============================
 
 What is this?
@@ -234,8 +241,10 @@ $ flip32 little-endian.bin > big-endian.bin
 Reference
 ---------
 * [電気回路/zynq/Petalinux2018.3でPLとDevice Treeを動的に変更する - 武内＠筑波大 #zb2c4ddb](https://dora.bk.tsukuba.ac.jp/~takeuchi/?%E9%9B%BB%E6%B0%97%E5%9B%9E%E8%B7%AF%2Fzynq%2FPetalinux2018.3%E3%81%A7PL%E3%81%A8Device%20Tree%E3%82%92%E5%8B%95%E7%9A%84%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B#zb2c4ddb)
+
+<hr>
+
 <span id="lcd-control">lcd-control</span> - Manipulate character LCD controller ST7032i via i2c
-lcd-control - Manipulate character LCD controller ST7032i via i2c
 ===========
 
 What is this?

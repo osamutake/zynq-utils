@@ -23,7 +23,8 @@ Contents
 
 <%= 
   Dir.glob("src/*/README.md").map do |f|
+    "\n<hr>\n\n"+
     `head -1 #{f}`.sub(/^([^ ]+)/, '<span id="\1">\1</span>') + 
-    `tail -n +1 #{f}`
+    `tail -n +2 #{f}`
   end.join("")
 %>
